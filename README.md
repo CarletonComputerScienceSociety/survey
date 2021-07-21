@@ -1,4 +1,4 @@
-# survey
+# Survey Project
 
 ## Project setup
 ```

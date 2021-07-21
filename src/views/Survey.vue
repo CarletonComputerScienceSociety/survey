@@ -1,21 +1,67 @@
 <template>
-  <div class="survey-page">
-    <Survey :questions="questions" />
+  <div class="survey-page" v-if="!this.loading()">
+    <SurveyProgress
+      :currentPage="this.determinePageCount()"
+      :pageCount="this.object.getQuestionCount()"
+    />
+    <Survey
+      v-if="!this.object.isComplete()"
+      :questions="this.response.questions"
+      :currentQuestion="this.object.getCurrentQuestion().getComponentFormat()"
+      :selectAnswer="selectAnswer"
+    />
+    <p class="survey-complete-message" v-if="this.object.isComplete()">
+      Thank you for your feedback!
+    </p>
   </div>
 </template>
 
 <script>
-import Survey from "@/components/Survey.vue";
-
-const data = { questions: [1, 2, 3, 4, 5] };
+import { Survey, SurveyProgress } from "@/components";
+import { getSurvey } from "@/services";
+import { Survey as Model } from "@/models";
 
 export default {
   name: "SurveyPage",
   components: {
     Survey,
+    SurveyProgress,
   },
   data() {
-    return data;
+    return {
+      object: null,
+      response: null,
+    };
+  },
+  async created() {
+    let response = await this.getData(1);
+    this.initData(response);
+  },
+  methods: {
+    getData: async (id) => {
+      return await getSurvey(id);
+    },
+    initData(response) {
+      this.response = response;
+      this.object = new Model(response);
+    },
+    loading() {
+      return this.response === null;
+    },
+    determinePageCount() {
+      if (this.object.isComplete()) {
+        return this.object.getQuestionCount();
+      }
+
+      return this.object.getCurrentQuestionDisplayIndex();
+    },
+    selectAnswer(answerIndex) {
+      this.object.selectAnswer(answerIndex);
+
+      if (this.object.isComplete()) {
+        // create reponse request
+      }
+    },
   },
 };
 </script>

@@ -1,0 +1,1 @@
+export { getSurvey } from "./getSurvey";
