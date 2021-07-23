@@ -27,6 +27,7 @@ export default {
 <style scoped lang="scss">
 .multiple-choice-answer {
   width: 90%;
+  font-weight: 700;
   border: 0.13rem solid #ddd;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -41,7 +42,8 @@ export default {
 @media only screen and (min-width: 800px) {
   .multiple-choice-answer:hover {
     border-color: #c40729;
-    background-color: #f9969626;
+    background-color: #c40729;
+    color: white;
   }
 }
 

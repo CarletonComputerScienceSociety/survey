@@ -23,7 +23,7 @@ const SURVEYS = [
           },
           {
             id: 4,
-            text: "Other",
+            text: "None of the above",
           },
         ],
       },
