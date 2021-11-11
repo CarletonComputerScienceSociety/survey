@@ -30,29 +30,24 @@ class MultipleChoiceAnswer(models.Model):
 
 class WrittenQuestion(Question):
     def __str__(self):
-        return str(self.id)
+        return str(self.id) # TypeError: __str__ returned non-string
 
 
-class Submissions(models.Model):
+class Submission(models.Model):
     # poll exhibits a one to many relationship
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE, null=True, blank=True)
 
 
-class Responses(PolymorphicModel):
+class Response(PolymorphicModel):
     # submission will have many responses
-    submissions = models.ForeignKey(
-        Submissions, on_delete=models.CASCADE, null=True, blank=True
+    submission = models.ForeignKey(
+        Submission, on_delete=models.CASCADE, null=True, blank=True
     )
-    # maybe remove this check in spec
-    # do not need this because multiple choice and written have their own question fields
-    # question = models.ForeignKey(Question,
-    #                         on_delete=models.CASCADE,
-    #                         null=True,
-    #                         blank=True)
 
 
-class MultipleChoiceResponses(Responses):
-    # error due to clash with responses question
+
+class MultipleChoiceResponse(Response):
+    #
     question_multiplechoice = models.ForeignKey(
         MultipleChoiceQuestion, on_delete=models.CASCADE, null=True, blank=True
     )
@@ -61,7 +56,7 @@ class MultipleChoiceResponses(Responses):
     # multiple choice answer can be gotten from MultipleChoiceAnswer
 
 
-class WrittenResponses(Responses):
+class WrittenResponse(Response):
     question_written = models.ForeignKey(
         WrittenQuestion,
         related_name="questions",
