@@ -30,7 +30,7 @@ class MultipleChoiceAnswer(models.Model):
 
 class WrittenQuestion(Question):
     def __str__(self):
-        return str(self.id) # TypeError: __str__ returned non-string
+        return str(self.id)  # TypeError: __str__ returned non-string
 
 
 class Submission(models.Model):
@@ -43,7 +43,6 @@ class Response(PolymorphicModel):
     submission = models.ForeignKey(
         Submission, on_delete=models.CASCADE, null=True, blank=True
     )
-
 
 
 class MultipleChoiceResponse(Response):
