@@ -27,24 +27,24 @@ class WrittenQuestionResource(admin.ModelAdmin):
     list_display = ["id", "body", "poll"]
 
 
-@admin.register(Submissions)
+@admin.register(Submission)
 class SubmissionResource(admin.ModelAdmin):
     list_display = ["id", "poll"]
 
 
-@admin.register(Responses)
+@admin.register(Response)
 class ResponseResource(admin.ModelAdmin):
     list_display = [
         "id",
-        "submissions",
+        "submission",
     ]
 
 
-@admin.register(MultipleChoiceResponses)
+@admin.register(MultipleChoiceResponse)
 class MultipleChoiceResponseResource(admin.ModelAdmin):
-    list_display = ["id", "submissions", "question_multiplechoice", "answer"]
+    list_display = ["id", "submission", "question_multiplechoice", "answer"]
 
 
-@admin.register(WrittenResponses)
+@admin.register(WrittenResponse)
 class WrittenResponseResource(admin.ModelAdmin):
     list_display = ["id", "question_written", "answer_body"]
