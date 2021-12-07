@@ -23,4 +23,10 @@ schema_view = get_schema_view(
 urlpatterns = [
     path("", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
+    path("submissions/", SubmissionList.as_view(), name="submission"),
+    path("multipleres/", MultipleChoiceResponseList.as_view(), name="multiple response"),
+    path("writtenres/", WrittenResponseList.as_view(), name="written response"),
+    path("multques/", MultipleChoiceQuestionList.as_view(), name="multiple question"),
+    path("writtenques/", WrittenQuestionList.as_view(), name="written question"),
 ]
+#will all the data be sent through one submission
