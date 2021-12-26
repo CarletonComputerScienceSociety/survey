@@ -7,22 +7,35 @@ class Poll(models.Model):
     title = models.CharField(max_length=200, null=True)
     description = models.CharField(max_length=200)
 
+    def questions_list(self):
+        return self.questions.all()
 
-class Question(models.Model):
+
+class Question(PolymorphicModel):
     body = models.CharField(max_length=200)
-    poll = models.ForeignKey(Poll, on_delete=models.CASCADE, null=True)
+
+    poll = models.ForeignKey(
+        Poll,
+        related_name="questions",
+        on_delete=models.CASCADE,
+        null=True,
+    )
 
 
 class MultipleChoiceQuestion(Question):
     def __str__(self):
-        return str(self.id)  # TypeError: __str__ returned non-string
+        return str(self.id)
+
+    def answers_list(self):
+        return self.answers.all()
 
 
 class MultipleChoiceAnswer(models.Model):
     answer_body = models.CharField(max_length=200)
+
     multiple_choice_question = models.ForeignKey(
         MultipleChoiceQuestion,
-        related_name="questions",
+        related_name="answers",
         on_delete=models.CASCADE,
         null=True,
     )
