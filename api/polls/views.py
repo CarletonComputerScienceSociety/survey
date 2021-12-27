@@ -1,88 +1,58 @@
 from django.shortcuts import render
-from polls.serializers import SubmissionSerializer,MultipleChoiceResponseSerializer,WrittenResponseSerializer, MultipleChoiceQuestionSerializer, WrittenQuestionSerializer
+from polls.serializers import SubmissionSerializer,MultipleChoiceResponseSerializer,WrittenResponseSerializer, MultipleChoiceQuestionSerializer, WrittenQuestionSerializer\
+,ResponseSerializer
 from django.db.models.query import QuerySet
 
 from rest_framework.parsers import JSONParser
 from rest_framework import status, generics
 from rest_framework.response import Response
 from .models import Submission,Poll,MultipleChoiceResponse,MultipleChoiceQuestion,MultipleChoiceAnswer\
-,MultipleChoiceAnswer,WrittenResponse,WrittenQuestion, MultipleChoiceQuestion
+,MultipleChoiceAnswer,WrittenResponse,WrittenQuestion, MultipleChoiceQuestion, Question
 
-
-
-# Create your views here.
-
+from django.http import HttpResponse
+import requests
+from django.views.decorators.csrf import csrf_exempt
 
 class SubmissionList(generics.GenericAPIView):  
     queryset = Submission.objects.all()
     serializer_class = SubmissionSerializer
       
     def post(self, request):  
-        #serializer = self.serializer_class(data=request.data)
-        # serializer.is_valid(raise_exception=True)
-        # serializer.save()
-        print(request.data)
-        #prints the swagger box its a dict
-        #takes poll from the swagger box and passes it into the submission model
+
         poll = Poll.objects.get(id=request.data['poll'])
         submission = Submission.objects.create(poll=poll)
-        print(submission)
-        
-        #print(serializer)
         serializer = self.serializer_class(submission)
         return Response(serializer.data,status=201)
     
-
-class MultipleChoiceResponseList(generics.GenericAPIView):
+class ResponseList(generics.GenericAPIView):
+    #maybe not needed
     queryset = MultipleChoiceResponse.objects.all()
-    serializer_class = MultipleChoiceResponseSerializer
-
+    serializer_class = ResponseSerializer
     def post(self, request):  
-        submission = Submission.objects.get(id=request.data['submission'])
-        print(request.data)
-        #get the question object from the given id
-        question_multiplechoice= MultipleChoiceQuestion.objects.get(id=request.data['question_multiplechoice'])
-        
-        #get the answer content
-        #will get answer object
-        answer= request.data['answer']
-        #create answer object in the MultipleChoiceAnswer
-        multiple_answer_create= MultipleChoiceAnswer.objects.create(answer_body=answer,multiple_choice_question=question_multiplechoice)
-        print('hi',request.data,multiple_answer_create)
+        #loops through each given dataset
+        for i in request.data['data']:
+            question_type= Question.objects.get(id=i["question"]) #get question object
+            if isinstance(question_type,MultipleChoiceQuestion):#check if belongs to MultipleChoiceQuestion
+                #get submission,question,answer objects
+                submission = Submission.objects.get(id=i['submission'])
+                question_multiplechoice= MultipleChoiceQuestion.objects.get(id=i['question'])
+                answer= MultipleChoiceAnswer.objects.get(id=i['answer'])
 
-        #create response object given all the data
-
-        mrc = MultipleChoiceResponse.objects.create(submission=submission,question_multiplechoice=question_multiplechoice,answer=multiple_answer_create)
-        print(mrc)
+                #create response object given all the data
+                multiple_choice_response_create = MultipleChoiceResponse.objects.create(submission=submission,question_multiplechoice=question_multiplechoice,answer=answer)
+                serializer = self.serializer_class(multiple_choice_response_create)
+                #add submission save for multiple
+            elif isinstance(question_type,WrittenQuestion):
+                submission = Submission.objects.get(id=i['submission'])
+                question_written= WrittenQuestion.objects.get(id=i['question'])
+                answer= i['answer']
+                writtenresponse_create = WrittenResponse.objects.create(submission=submission,question_written=question_written,answer_body=answer)
+                serializer = self.serializer_class(writtenresponse_create)
         
-        #print(serializer)
-        serializer = self.serializer_class(mrc)
         return Response(serializer.data,status=201)
         
-        #question can be seperate but answer will come with the response 
-        #is onus of checking for multiple/written on backend or frontend
-        #2 approaches make both in this and check for type or front end will call the correct one depending on the question
-        #for now its seperate
-        #why does swagger show string
 
-class WrittenResponseList(generics.GenericAPIView):
-    queryset = WrittenResponse.objects.all()
-    serializer_class = WrittenResponseSerializer
 
-    def post(self, request):  
-        submission = Submission.objects.get(id=request.data['submission'])
-        print(request.data)
-        question_written= WrittenQuestion.objects.get(id=request.data['question_written'])
-        answer= request.data['answer_body']
-        #dont need this because of how written is structured
-        #written_answer_create= MultipleChoiceAnswer.objects.create(answer_body=answer,multiple_choice_question=question_multiplechoice)
-        print('hi',request.data)
-        writtenresponse = WrittenResponse.objects.create(submission=submission,question_written=question_written,answer_body=answer)
-        print(writtenresponse)
-        
-        #print(serializer)
-        serializer = self.serializer_class(writtenresponse)
-        return Response(serializer.data,status=201)
 
 #discrepancy between mode of multiple and written
 

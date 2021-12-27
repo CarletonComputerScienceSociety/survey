@@ -1,7 +1,7 @@
 from django.db.models import fields
 from polls.models import Submission,MultipleChoiceResponse,WrittenResponse,WrittenQuestion,MultipleChoiceQuestion
 from rest_framework import serializers
-
+from rest_polymorphic.serializers import PolymorphicSerializer
 
 
 class SubmissionSerializer(serializers.ModelSerializer):
@@ -34,3 +34,8 @@ class WrittenQuestionSerializer(serializers.ModelSerializer):
         model = WrittenQuestion
         fields = ["poll","body",]
 
+class ResponseSerializer(PolymorphicSerializer):
+    model_serializer_mapping = {
+        MultipleChoiceResponse: MultipleChoiceResponseSerializer,
+        WrittenResponse: WrittenResponseSerializer,
+    }

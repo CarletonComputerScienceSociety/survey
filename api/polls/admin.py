@@ -48,3 +48,4 @@ class MultipleChoiceResponseResource(admin.ModelAdmin):
 @admin.register(WrittenResponse)
 class WrittenResponseResource(admin.ModelAdmin):
     list_display = ["id", "question_written", "answer_body"]
+

@@ -8,7 +8,7 @@ class Poll(models.Model):
     description = models.CharField(max_length=200)
 
 
-class Question(models.Model):
+class Question(PolymorphicModel):
     body = models.CharField(max_length=200)
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE, null=True)
 
