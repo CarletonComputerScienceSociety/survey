@@ -35,7 +35,6 @@ export default {
   },
   async created() {
     let response = await this.getData(1);
-    console.log(response);
     this.initData(response.data);
   },
   methods: {
