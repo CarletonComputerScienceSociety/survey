@@ -14,7 +14,7 @@ class Survey {
   }
 
   initQuestionInput(question) {
-    if (question.type === "MultipleChoiceQuestion") {
+    if (question.resourcetype === "MultipleChoiceQuestion") {
       return new MultipleChoiceQuestion(question.body, question.answers);
     }
 
