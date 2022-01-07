@@ -10,7 +10,7 @@ class MultipleChoiceQuestion extends Question {
 
   initAnswerInputs(answers) {
     return answers.map(
-      (answer, index) => new MultipleChoiceAnswer(index, answer.text)
+      (answer, index) => new MultipleChoiceAnswer(index, answer.answerBody)
     );
   }
 

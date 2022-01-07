@@ -1,6 +1,6 @@
 from django.db.models.query import QuerySet
 from rest_framework import status, generics
-from rest_framework.response import Response
+from rest_framework.response import Response as R
 from .models import *
 from django.db import models
 from rest_framework import serializers
@@ -18,7 +18,7 @@ class PollDetails(generics.RetrieveAPIView):
             poll = Poll.objects.get(id=id)
             serializer = PollSerializer(poll, many=False)
             final_data = {"data": serializer.data, "errors": None}
-            return Response(final_data, status=status.HTTP_200_OK)
+            return R(final_data, 200)
         except Poll.DoesNotExist:
             final_data = {"data": {}, "errors": "Event not found"}
-            return Response(final_data, status=status.HTTP_404_NOT_FOUND)
+            return R(final_data, 404)
