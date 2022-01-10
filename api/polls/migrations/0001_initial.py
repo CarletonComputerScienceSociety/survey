@@ -9,108 +9,257 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('contenttypes', '0002_remove_content_type_name'),
+        ("contenttypes", "0002_remove_content_type_name"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='MultipleChoiceAnswer',
+            name="MultipleChoiceAnswer",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('answer_body', models.CharField(max_length=200)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("answer_body", models.CharField(max_length=200)),
             ],
         ),
         migrations.CreateModel(
-            name='Poll',
+            name="Poll",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200, null=True)),
-                ('description', models.CharField(max_length=200)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200, null=True)),
+                ("description", models.CharField(max_length=200)),
             ],
         ),
         migrations.CreateModel(
-            name='Question',
+            name="Question",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('body', models.CharField(max_length=200)),
-                ('poll', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='questions', to='polls.poll')),
-                ('polymorphic_ctype', models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='polymorphic_polls.question_set+', to='contenttypes.contenttype')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("body", models.CharField(max_length=200)),
+                (
+                    "poll",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="questions",
+                        to="polls.poll",
+                    ),
+                ),
+                (
+                    "polymorphic_ctype",
+                    models.ForeignKey(
+                        editable=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="polymorphic_polls.question_set+",
+                        to="contenttypes.contenttype",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
-                'base_manager_name': 'objects',
+                "abstract": False,
+                "base_manager_name": "objects",
             },
         ),
         migrations.CreateModel(
-            name='MultipleChoiceQuestion',
+            name="MultipleChoiceQuestion",
             fields=[
-                ('question_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='polls.question')),
+                (
+                    "question_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="polls.question",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
-                'base_manager_name': 'objects',
+                "abstract": False,
+                "base_manager_name": "objects",
             },
-            bases=('polls.question',),
+            bases=("polls.question",),
         ),
         migrations.CreateModel(
-            name='WrittenQuestion',
+            name="WrittenQuestion",
             fields=[
-                ('question_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='polls.question')),
+                (
+                    "question_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="polls.question",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
-                'base_manager_name': 'objects',
+                "abstract": False,
+                "base_manager_name": "objects",
             },
-            bases=('polls.question',),
+            bases=("polls.question",),
         ),
         migrations.CreateModel(
-            name='Submission',
+            name="Submission",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('poll', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='polls.poll')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "poll",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="polls.poll",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Response',
+            name="Response",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('polymorphic_ctype', models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='polymorphic_polls.response_set+', to='contenttypes.contenttype')),
-                ('submission', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='polls.submission')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "polymorphic_ctype",
+                    models.ForeignKey(
+                        editable=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="polymorphic_polls.response_set+",
+                        to="contenttypes.contenttype",
+                    ),
+                ),
+                (
+                    "submission",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="polls.submission",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
-                'base_manager_name': 'objects',
+                "abstract": False,
+                "base_manager_name": "objects",
             },
         ),
         migrations.CreateModel(
-            name='WrittenResponse',
+            name="WrittenResponse",
             fields=[
-                ('response_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='polls.response')),
-                ('answer_body', models.CharField(max_length=200)),
-                ('question_written', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='questions', to='polls.writtenquestion')),
+                (
+                    "response_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="polls.response",
+                    ),
+                ),
+                ("answer_body", models.CharField(max_length=200)),
+                (
+                    "question_written",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="questions",
+                        to="polls.writtenquestion",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
-                'base_manager_name': 'objects',
+                "abstract": False,
+                "base_manager_name": "objects",
             },
-            bases=('polls.response',),
+            bases=("polls.response",),
         ),
         migrations.CreateModel(
-            name='MultipleChoiceResponse',
+            name="MultipleChoiceResponse",
             fields=[
-                ('response_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='polls.response')),
-                ('answer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.multiplechoiceanswer')),
-                ('question_multiplechoice', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='polls.multiplechoicequestion')),
+                (
+                    "response_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="polls.response",
+                    ),
+                ),
+                (
+                    "answer",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="polls.multiplechoiceanswer",
+                    ),
+                ),
+                (
+                    "question_multiplechoice",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="polls.multiplechoicequestion",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
-                'base_manager_name': 'objects',
+                "abstract": False,
+                "base_manager_name": "objects",
             },
-            bases=('polls.response',),
+            bases=("polls.response",),
         ),
         migrations.AddField(
-            model_name='multiplechoiceanswer',
-            name='multiple_choice_question',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='answers', to='polls.multiplechoicequestion'),
+            model_name="multiplechoiceanswer",
+            name="multiple_choice_question",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="answers",
+                to="polls.multiplechoicequestion",
+            ),
         ),
     ]
