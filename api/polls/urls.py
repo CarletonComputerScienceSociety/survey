@@ -31,6 +31,4 @@ urlpatterns = [
     ),
     path("submissions/", SubmissionList.as_view(), name="submission"),
     path("response/", ResponseList.as_view(), name="response"),
-    path("multiplechoicequestion/", MultipleChoiceQuestionList.as_view(), name="multiple question"),
-    path("writtenquestion/", WrittenQuestionList.as_view(), name="written question"),
 ]
