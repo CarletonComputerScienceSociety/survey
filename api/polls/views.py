@@ -14,9 +14,9 @@ from .models import (
     Question,
 )
 
-# Issue with model Response
+
 from django.db import models
-from rest_framework import serializers, status  # added status not sure if needed
+from rest_framework import serializers, status  
 from uuid import UUID
 from .serializers import *
 
