@@ -15,10 +15,15 @@ class PollDetails(generics.RetrieveAPIView):
 
     def get(self, request, id):
         try:
+            UUID(id, version=4)
             poll = Poll.objects.get(id=id)
             serializer = PollSerializer(poll, many=False)
             final_data = {"data": serializer.data, "errors": None}
             return R(final_data, 200)
+        except ValueError:
+            return R(
+                {"data": {}, "errors": "Invalid ID"}, 400
+            )
         except Poll.DoesNotExist:
-            final_data = {"data": {}, "errors": "Event not found"}
+            final_data = {"data": {}, "errors": "Poll not found"}
             return R(final_data, 404)

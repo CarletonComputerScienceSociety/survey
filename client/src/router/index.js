@@ -3,7 +3,7 @@ import Survey from "../views/Survey.vue";
 
 const routes = [
   {
-    path: "/",
+    path: "/:id",
     name: "Survey",
     component: Survey,
   },
