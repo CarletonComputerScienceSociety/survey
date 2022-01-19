@@ -3,7 +3,7 @@ from rest_framework import status, generics
 from rest_framework.response import Response as R
 from .models import *
 from django.db import models
-from rest_framework import serializers,status 
+from rest_framework import serializers, status
 from uuid import UUID
 from .serializers import *
 
@@ -24,7 +24,6 @@ class PollDetails(generics.RetrieveAPIView):
             return R(final_data, 404)
 
 
-
 class SubmissionList(generics.GenericAPIView):
     queryset = Submission.objects.all()
     serializer_class = SubmissionSerializer
@@ -33,8 +32,9 @@ class SubmissionList(generics.GenericAPIView):
         poll = Poll.objects.get(id=request.data["poll"])
         submission = Submission.objects.create(poll=poll)
         serializer = self.serializer_class(submission)
-        return R(serializer.data,status=201)
-    
+        return R(serializer.data, status=201)
+
+
 class ResponseList(generics.GenericAPIView):
     queryset = MultipleChoiceResponse.objects.all()
     serializer_class = ResponseSerializer
@@ -72,36 +72,22 @@ class ResponseList(generics.GenericAPIView):
                     answer_body=answer,
                 )
                 serializer = self.serializer_class(writtenresponse_create)
-        
-        return R(serializer.data,status=201)
-        
+
+        return R(serializer.data, status=201)
 
 
+# discrepancy between mode of multiple and written
 
-#discrepancy between mode of multiple and written
 
 class MultipleChoiceQuestionList(generics.GenericAPIView):
     queryset = MultipleChoiceQuestion.objects.all()
     serializer_class = MultipleChoiceQuestionSerializer
 
-    def post(self, request):  
-        poll = Poll.objects.get(id=request.data['poll'])
-        body= request.data['body']
-        multiple_choice_question_create = MultipleChoiceQuestion.objects.create(poll=poll,body=body)
+    def post(self, request):
+        poll = Poll.objects.get(id=request.data["poll"])
+        body = request.data["body"]
+        multiple_choice_question_create = MultipleChoiceQuestion.objects.create(
+            poll=poll, body=body
+        )
         serializer = self.serializer_class(multiple_choice_question_create)
-        return R(serializer.data,status=201)
-
-
-class WrittenQuestionList(generics.GenericAPIView):
-    queryset = WrittenQuestion.objects.all()
-    serializer_class = WrittenQuestionSerializer
-
-    def post(self, request):  
-        poll = Poll.objects.get(id=request.data['poll'])
-        body= request.data['body']
-        
-        written_question_create = WrittenQuestion.objects.create(poll=poll,body=body)
-        
-
-        serializer = self.serializer_class(written_question_create)
-        return R(serializer.data,status=201)
+        return R(serializer.data, status=201)
