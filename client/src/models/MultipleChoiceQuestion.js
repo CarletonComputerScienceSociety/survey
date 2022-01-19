@@ -5,7 +5,7 @@ class MultipleChoiceQuestion extends Question {
   constructor(body, answers) {
     super(body);
     this.selectedAnswerIndex = -1;
-    this.answerInputs = this.initAnswerInputs(answers);
+    this.answerInputs = this.initAnswerInputs(answers);//list
   }
 
   initAnswerInputs(answers) {
