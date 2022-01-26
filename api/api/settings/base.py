@@ -159,7 +159,9 @@ AWS_QUERYSTRING_AUTH = False
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Cors
-
 CORS_ALLOWED_ORIGINS = [
+    "https://merged.carletoncomputerscience.ca",
+    "http://localhost:8000",
     "http://localhost:8080",
 ]
+
