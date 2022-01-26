@@ -5,7 +5,7 @@ class Survey {
   constructor(survey) {
     this.title = survey.title;
     this.currentQuestionIndex = 0;
-    this.questionInputs = this.initQuestionsInputs(survey.questions);
+    this.questionInputs = this.initQuestionsInputs(survey.questions); //list
     this.complete = false;
   }
 
@@ -14,7 +14,7 @@ class Survey {
   }
 
   initQuestionInput(question) {
-    if (question.resourcetype === "MultipleChoiceQuestion") {
+    if (question.type === "MultipleChoiceQuestion") {
       return new MultipleChoiceQuestion(question.body, question.answers);
     }
 
@@ -42,15 +42,26 @@ class Survey {
   }
 
   selectAnswer(answerIndex) {
-    if (this.getCurrentQuestion().type === "MultipleChoiceQuestion") {
-      this.getCurrentQuestion().setSelectedIndex(answerIndex);
+    if (this.getCurrentQuestion() instanceof MultipleChoiceQuestion) {
+      //check with instance
+      this.getCurrentQuestion().setSelectedIndex(answerIndex); //index
+      console.log(answerIndex);
     }
-
+    console.log(this.getCurrentQuestion().type);
     this.increaseCurrentQuestionIndex();
   }
 
   isComplete() {
     return this.complete;
+  }
+  getData() {
+    const data1 = {
+      data: [
+        { submission: 1, question: 2, answer: "vue3" },
+        { submission: 1, question: 1, answer: "1" },
+      ],
+    };
+    return data1;
   }
 }
 

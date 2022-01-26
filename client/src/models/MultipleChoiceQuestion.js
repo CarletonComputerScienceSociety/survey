@@ -5,12 +5,12 @@ class MultipleChoiceQuestion extends Question {
   constructor(body, answers) {
     super(body);
     this.selectedAnswerIndex = -1;
-    this.answerInputs = this.initAnswerInputs(answers);
+    this.answerInputs = this.initAnswerInputs(answers); //list
   }
 
   initAnswerInputs(answers) {
     return answers.map(
-      (answer, index) => new MultipleChoiceAnswer(index, answer.answerBody)
+      (answer, index) => new MultipleChoiceAnswer(index, answer.text)
     );
   }
 

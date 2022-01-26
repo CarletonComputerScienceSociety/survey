@@ -29,4 +29,6 @@ urlpatterns = [
         PollDetails.as_view(),
         name="poll-details",
     ),
+    path("submissions/", SubmissionList.as_view(), name="submission"),
+    path("response/", ResponseList.as_view(), name="response"),
 ]
