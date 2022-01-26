@@ -5,7 +5,7 @@ class Survey {
   constructor(survey) {
     this.title = survey.title;
     this.currentQuestionIndex = 0;
-    this.questionInputs = this.initQuestionsInputs(survey.questions);//list
+    this.questionInputs = this.initQuestionsInputs(survey.questions); //list
     this.complete = false;
   }
 
@@ -42,8 +42,9 @@ class Survey {
   }
 
   selectAnswer(answerIndex) {
-    if (this.getCurrentQuestion() instanceof MultipleChoiceQuestion) {//check with instance
-      this.getCurrentQuestion().setSelectedIndex(answerIndex);//index
+    if (this.getCurrentQuestion() instanceof MultipleChoiceQuestion) {
+      //check with instance
+      this.getCurrentQuestion().setSelectedIndex(answerIndex); //index
       console.log(answerIndex);
     }
     console.log(this.getCurrentQuestion().type);
@@ -53,11 +54,15 @@ class Survey {
   isComplete() {
     return this.complete;
   }
-  getData(){
+  getData() {
     const data1 = {
-      "data": [{"submission":1,"question":2,"answer":"vue3"},{"submission":1,"question":1,"answer":"1"}]
-    }
-    return data1; }
+      data: [
+        { submission: 1, question: 2, answer: "vue3" },
+        { submission: 1, question: 1, answer: "1" },
+      ],
+    };
+    return data1;
+  }
 }
 
 export { Survey };

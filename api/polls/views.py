@@ -42,8 +42,8 @@ class ResponseList(generics.GenericAPIView):
     def post(self, request):
         # loops through each given dataset
         for i in request.data["data"]:
-            question_type = Question.objects.get(id=i["question"]) 
-            if isinstance(question_type, MultipleChoiceQuestion):  
+            question_type = Question.objects.get(id=i["question"])
+            if isinstance(question_type, MultipleChoiceQuestion):
                 submission = Submission.objects.get(id=i["submission"])
                 question_multiplechoice = MultipleChoiceQuestion.objects.get(
                     id=i["question"]
