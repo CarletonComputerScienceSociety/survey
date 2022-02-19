@@ -5,6 +5,9 @@ from polls.models import (
     MultipleChoiceQuestion,
     WrittenQuestion,
     Question,
+    MultipleChoiceResponse,
+    WrittenResponse,
+    Submission
 )
 from rest_framework import serializers
 from rest_polymorphic.serializers import PolymorphicSerializer
@@ -45,4 +48,41 @@ class PollSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Poll
-        fields = ["id", "title", "description", "questions"]
+        fields = ["id", "url", "title", "description", "questions"]
+
+
+
+
+
+class MultipleChoiceResponseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MultipleChoiceResponse
+        fields = ["body", "answer"]
+
+
+class WrittenResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WrittenResponse
+        fields = ["answer_body"]
+
+class ResponseSerializer(PolymorphicSerializer):
+    model_serializer_mapping = {
+        MultipleChoiceResponse: MultipleChoiceResponseSerializer,
+        WrittenResponse: WrittenResponseSerializer,
+    }
+
+class SubmissionSerializer(serializers.ModelSerializer):
+
+    responses = ResponseSerializer(many=True, required=False, source="responses_list")
+
+    class Meta:
+        model = Submission
+        fields = ["responses"]
+
+class PollStatisticsSerializer(serializers.ModelSerializer):
+
+    questions = QuestionSerializer(many=True, required=False, source="questions_list")
+    class Meta:
+        model = Poll
+        fields = ["id", "url", "title", "description", "questions"]

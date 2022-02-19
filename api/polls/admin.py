@@ -9,7 +9,7 @@ class QuestionResource(admin.ModelAdmin):
 
 @admin.register(Poll)
 class PollResource(admin.ModelAdmin):
-    list_display = ["id", "title", "description"]
+    list_display = ["id", "url", "title", "description"]
 
 
 @admin.register(MultipleChoiceQuestion)

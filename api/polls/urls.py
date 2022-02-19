@@ -29,4 +29,9 @@ urlpatterns = [
         PollDetails.as_view(),
         name="poll-details",
     ),
+    path(
+        "poll/statistics/<id>",
+        PollStatistics.as_view(),
+        name="poll-statistics",
+    ),
 ]
