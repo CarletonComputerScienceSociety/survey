@@ -40,11 +40,13 @@ class ResponseList(generics.GenericAPIView):
     serializer_class = ResponseSerializer
 
     def post(self, request):
-        # loops through each given dataset
+        # create submission out of the loop because each submission has multiple responses
+        poll_object = request.data["data"][0]["poll"]
+        submission = Submission.objects.create(poll=Poll.objects.get(id=poll_object))
         for i in request.data["data"]:
             question_type = Question.objects.get(id=i["question"])
             if isinstance(question_type, MultipleChoiceQuestion):
-                submission = Submission.objects.get(id=i["submission"])
+
                 question_multiplechoice = MultipleChoiceQuestion.objects.get(
                     id=i["question"]
                 )
@@ -58,7 +60,6 @@ class ResponseList(generics.GenericAPIView):
                 )
                 serializer = self.serializer_class(multiple_choice_response_create)
             elif isinstance(question_type, WrittenQuestion):
-                submission = Submission.objects.get(id=i["submission"])
                 question_written = WrittenQuestion.objects.get(id=i["question"])
                 answer = i["answer"]
                 writtenresponse_create = WrittenResponse.objects.create(

@@ -1,5 +1,5 @@
 <template>
-  <div class="survey-page" v-if="!this.loading()">
+  <div class="survey-page" v-if="!this.loading() && this.errorMessage === null">
     <SurveyProgress
       :currentPage="this.determinePageCount()"
       :pageCount="this.object.getQuestionCount()"
@@ -18,7 +18,7 @@
 
 <script>
 import { Survey, SurveyProgress } from "@/components";
-import { getSurvey, create_response } from "@/services";
+import { getSurvey,create_response } from "@/services";
 import { Survey as Model } from "@/models";
 
 export default {
@@ -31,13 +31,17 @@ export default {
     return {
       object: null,
       response: null,
+      errorMessage: null,
     };
   },
   async created() {
-    let response = await this.getData(1);
-    this.initData(response);
-    let surveyData = this.object.getData();
-    create_response(surveyData);
+    try {
+      let response = await this.getData(this.$route.params.id); 
+      this.initData(response.data);
+    } catch (error) {
+      console.log(error);
+      this.errorMessage = error;
+    }
   },
   methods: {
     getData: async (id) => {
@@ -50,6 +54,11 @@ export default {
     loading() {
       return this.response === null;
     },
+    error() {
+      console.log(this.response);
+      return false;
+    },
+
     determinePageCount() {
       if (this.object.isComplete()) {
         return this.object.getQuestionCount();
@@ -61,9 +70,10 @@ export default {
       this.object.selectAnswer(answerIndex);
 
       if (this.object.isComplete()) {
-        // create reponse request
+        let surveyData = this.object.getData();
+        create_response(surveyData);
       }
-    },
+    }
   },
 };
 </script>
