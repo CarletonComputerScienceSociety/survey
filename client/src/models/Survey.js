@@ -16,9 +16,13 @@ class Survey {
 
   initQuestionInput(question) {
     if (question.resourcetype === "MultipleChoiceQuestion") {
-      return new MultipleChoiceQuestion(question.body, question.id,question.answers);
+      return new MultipleChoiceQuestion(
+        question.body,
+        question.id,
+        question.answers
+      );
     }
-    
+
     return new Question(question.order, question.question.body);
   }
 
@@ -47,7 +51,7 @@ class Survey {
       //check with instance
       this.getCurrentQuestion().setSelectedIndex(answerIndex);
     }
-        this.increaseCurrentQuestionIndex();
+    this.increaseCurrentQuestionIndex();
   }
 
   isComplete() {
@@ -55,13 +59,18 @@ class Survey {
   }
   getData() {
     let data = [];
-    for (let i=0;i<this.questionInputs.length;i++){
-      let questionDatabaseIndex = this.questionInputs[i].id ;
-      let answerDatabaseIndex = this.questionInputs[i].getSelectedAnswerDatabaseIndex();
-      data.push({poll:this.surveyId,question:questionDatabaseIndex,answer:answerDatabaseIndex});
+    for (let i = 0; i < this.questionInputs.length; i++) {
+      let questionDatabaseIndex = this.questionInputs[i].id;
+      let answerDatabaseIndex =
+        this.questionInputs[i].getSelectedAnswerDatabaseIndex();
+      data.push({
+        poll: this.surveyId,
+        question: questionDatabaseIndex,
+        answer: answerDatabaseIndex,
+      });
     }
 
-    return {data:data}
+    return { data: data };
   }
 }
 
