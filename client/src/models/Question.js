@@ -1,6 +1,7 @@
 class Question {
-  constructor(body) {
+  constructor(body, id) {
     this.body = body;
+    this.id = id;
   }
 
   getComponentFormat() {

@@ -26,7 +26,7 @@ class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MultipleChoiceQuestion
-        fields = ["body", "answers"]
+        fields = ["body", "answers", "id"]
 
 
 class WrittenQuestionSerializer(serializers.ModelSerializer):

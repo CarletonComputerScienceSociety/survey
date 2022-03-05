@@ -1,6 +1,7 @@
 class MultipleChoiceAnswer {
-  constructor(index, text) {
+  constructor(index, id, text) {
     this.index = index;
+    this.id = id;
     this.text = text;
   }
 

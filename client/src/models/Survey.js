@@ -4,6 +4,7 @@ import { MultipleChoiceQuestion } from "./MultipleChoiceQuestion";
 class Survey {
   constructor(survey) {
     this.title = survey.title;
+    this.surveyId = survey.id;
     this.currentQuestionIndex = 0;
     this.questionInputs = this.initQuestionsInputs(survey.questions); //list
     this.complete = false;
@@ -14,10 +15,10 @@ class Survey {
   }
 
   initQuestionInput(question) {
-    if (question.type === "MultipleChoiceQuestion") {
-      return new MultipleChoiceQuestion(question.body, question.answers);
+    if (question.resourcetype === "MultipleChoiceQuestion") {
+      return new MultipleChoiceQuestion(question.body, question.id,question.answers);
     }
-
+    
     return new Question(question.order, question.question.body);
   }
 
@@ -44,24 +45,23 @@ class Survey {
   selectAnswer(answerIndex) {
     if (this.getCurrentQuestion() instanceof MultipleChoiceQuestion) {
       //check with instance
-      this.getCurrentQuestion().setSelectedIndex(answerIndex); //index
-      console.log(answerIndex);
+      this.getCurrentQuestion().setSelectedIndex(answerIndex);
     }
-    console.log(this.getCurrentQuestion().type);
-    this.increaseCurrentQuestionIndex();
+        this.increaseCurrentQuestionIndex();
   }
 
   isComplete() {
     return this.complete;
   }
   getData() {
-    const data1 = {
-      data: [
-        { submission: 1, question: 2, answer: "vue3" },
-        { submission: 1, question: 1, answer: "1" },
-      ],
-    };
-    return data1;
+    let data = [];
+    for (let i=0;i<this.questionInputs.length;i++){
+      let questionDatabaseIndex = this.questionInputs[i].id ;
+      let answerDatabaseIndex = this.questionInputs[i].getSelectedAnswerDatabaseIndex();
+      data.push({poll:this.surveyId,question:questionDatabaseIndex,answer:answerDatabaseIndex});
+    }
+
+    return {data:data}
   }
 }
 
