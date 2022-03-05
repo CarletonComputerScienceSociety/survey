@@ -6,23 +6,7 @@
 </template>
 
 <script>
-export default {
-  name: "MultipleChoiceAnswer",
-  props: {
-    index: {
-      type: Number,
-      required: true,
-    },
-    body: {
-      type: String,
-      required: true,
-    },
-    selectAnswer: {
-      type: Function,
-      required: true,
-    },
-  },
-};
+
 </script>
 
 <style scoped lang="scss">

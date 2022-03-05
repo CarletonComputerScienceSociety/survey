@@ -14,6 +14,7 @@
 <script>
 import MultipleChoiceAnswer from "@/components/MultipleChoiceAnswer.vue";
 
+
 export default {
   name: "MultipleChoiceQuestion",
   components: {

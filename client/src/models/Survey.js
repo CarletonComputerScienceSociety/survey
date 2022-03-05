@@ -1,5 +1,6 @@
-import { Question } from "./Question";
+//import { Question } from "./Question";
 import { MultipleChoiceQuestion } from "./MultipleChoiceQuestion";
+import { WrittenQuestion } from "./WrittenQuestion";
 
 class Survey {
   constructor(survey) {
@@ -22,8 +23,8 @@ class Survey {
         question.answers
       );
     }
-
-    return new Question(question.order, question.question.body);
+    //console.log(question.body);//breaking here
+    return new WrittenQuestion(question.order, question.body);
   }
 
   getCurrentQuestionDisplayIndex() {
