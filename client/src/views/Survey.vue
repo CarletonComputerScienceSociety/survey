@@ -18,7 +18,7 @@
 
 <script>
 import { Survey, SurveyProgress } from "@/components";
-import { getSurvey,create_response } from "@/services";
+import { getSurvey, create_response } from "@/services";
 import { Survey as Model } from "@/models";
 
 export default {
@@ -36,7 +36,7 @@ export default {
   },
   async created() {
     try {
-      let response = await this.getData(this.$route.params.id); 
+      let response = await this.getData(this.$route.params.id);
       this.initData(response.data);
     } catch (error) {
       console.log(error);
@@ -73,7 +73,7 @@ export default {
         let surveyData = this.object.getData();
         create_response(surveyData);
       }
-    }
+    },
   },
 };
 </script>

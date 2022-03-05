@@ -1,6 +1,6 @@
 const create_response = (surveyData) => {
-  postData("http://127.0.0.1:8000/api/response/", surveyData)
-  };
+  postData("http://127.0.0.1:8000/api/response/", surveyData);
+};
 
 // Example POST method implementation:
 async function postData(url = "", data = {}) {

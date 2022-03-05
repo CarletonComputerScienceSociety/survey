@@ -3,14 +3,15 @@ import { MultipleChoiceAnswer } from "./MultipleChoiceAnswer";
 
 class MultipleChoiceQuestion extends Question {
   constructor(body, id, answers) {
-    super(body,id);
+    super(body, id);
     this.selectedAnswerIndex = -1;
     this.answerInputs = this.initAnswerInputs(answers); //list
   }
 
   initAnswerInputs(answers) {
     return answers.map(
-      (answer, index) => new MultipleChoiceAnswer(index,answer.id,answer.answerBody)
+      (answer, index) =>
+        new MultipleChoiceAnswer(index, answer.id, answer.answerBody)
     );
   }
 
@@ -24,7 +25,7 @@ class MultipleChoiceQuestion extends Question {
   setSelectedIndex(answerIndex) {
     this.selectedAnswerIndex = answerIndex;
   }
-  getSelectedAnswerDatabaseIndex(){
+  getSelectedAnswerDatabaseIndex() {
     return this.answerInputs[this.selectedAnswerIndex].id;
   }
 }

@@ -15,4 +15,4 @@ const getSurvey = async (id) => {
   }
 };
 
-export { getSurvey }; 
+export { getSurvey };
