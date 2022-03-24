@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Survey from "../views/Survey.vue";
+import Statistics from "../views/Statistics.vue";
 
 const routes = [
   {
@@ -7,6 +8,13 @@ const routes = [
     name: "Survey",
     component: Survey,
   },
+  
+  {
+    path: "/statistics/:id",
+    name: "Statistics",
+    component: Statistics,
+  },
+  
   {
     path: "/about",
     name: "About",

@@ -1,1 +1,1 @@
-export { getSurvey } from "./getSurvey";
+export { getSurvey, getStatistics } from "./getSurvey";
