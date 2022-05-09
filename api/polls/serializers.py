@@ -32,7 +32,7 @@ class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
 class WrittenQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = WrittenQuestion
-        fields = ["body"]
+        fields = ["id","body"]
 
 
 class QuestionSerializer(PolymorphicSerializer):

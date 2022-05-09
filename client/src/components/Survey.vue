@@ -1,19 +1,41 @@
 <template>
   <div class="survey">
-    <MultipleChoiceQuestion
+
+    <!--<MultipleChoiceQuestion
+      v-if="currentQuestion.getClassName()=='MultipleChoiceQuestion'"
       :body="currentQuestion.body"
       :answers="currentQuestion.answers"
       :selectAnswer="selectAnswer"
+      />
+    <WrittenQuestion
+    </WrittenQuestion>v-if="currentQuestion.getClassName()=='WrittenQuestion'"
+    />-->
+    <MultipleChoiceQuestion
+      v-if="className==='MultipleChoiceQuestion'"
+      :body="currentQuestion.body"
+      :answers="currentQuestion.answers"
+      :selectAnswer="selectAnswer"
+      />
+      <WrittenQuestion
+      v-if="className==='WrittenQuestion'"
+      :body="currentQuestion.body"
+      :selectAnswer="selectAnswer"
+    
     />
+      
   </div>
 </template>
 
 <script>
 import MultipleChoiceQuestion from "@/components/MultipleChoiceQuestion.vue";
+import WrittenQuestion from "@/components/WrittenQuestion.vue";
+//import {MultipleChoiceQuestion as MultipleModel} from "@/models/MultipleChoiceQuestion";
+//import {WrittenQuestion as WrittenModel} from "@/models/WrittenQuestion";
 export default {
   name: "Survey",
   components: {
     MultipleChoiceQuestion,
+    WrittenQuestion,
   },
   props: {
     currentQuestion: {
@@ -23,8 +45,25 @@ export default {
       type: Function,
       required: true,
     },
+
+    className: {
+      type: String,
+      required: true,
+    }
+  
+  
   },
-};
+  methods: {
+  isMultipleModel (item) {
+    console.log(item);
+    console.log("hi");
+      //return item instanceof MultipleModel;
+  },
+  isWrittenModel (item) {
+    console.log(item);
+      //return item instanceof WrittenModel;
+}
+}};
 </script>
 
 <style scoped lang="scss">

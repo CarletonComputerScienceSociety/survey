@@ -1,5 +1,6 @@
-import { Question } from "./Question";
+//import { Question } from "./Question";
 import { MultipleChoiceQuestion } from "./MultipleChoiceQuestion";
+import { WrittenQuestion } from "./WrittenQuestion";
 
 class Survey {
   constructor(survey) {
@@ -11,10 +12,14 @@ class Survey {
   }
 
   initQuestionsInputs(questions) {
+    console.log(9);
+    console.log(questions.map((question) => this.initQuestionInput(question)));
     return questions.map((question) => this.initQuestionInput(question));
   }
 
   initQuestionInput(question) {
+    console.log(77);
+    console.log(this);
     if (question.resourcetype === "MultipleChoiceQuestion") {
       return new MultipleChoiceQuestion(
         question.body,
@@ -22,8 +27,11 @@ class Survey {
         question.answers
       );
     }
-
-    return new Question(question.order, question.question.body);
+    //console.log(question.body);//breaking here
+    else{
+      return new WrittenQuestion(question.id, question.body );
+    }
+    
   }
 
   getCurrentQuestionDisplayIndex() {
@@ -47,11 +55,22 @@ class Survey {
   }
 
   selectAnswer(answerIndex) {
+    console.log(66);
+    console.log(this.getCurrentQuestion());
+    console.log("called select answer")
     if (this.getCurrentQuestion() instanceof MultipleChoiceQuestion) {
       //check with instance
       this.getCurrentQuestion().setSelectedIndex(answerIndex);
     }
+    else{
+      let currentAnswer = document.getElementById("inputAnswer");
+      console.log(88);
+      console.log(currentAnswer.value);
+      console.log(this.getCurrentQuestion().answer);  
+      this.getCurrentQuestion().answer = currentAnswer.value    ;
+    }
     this.increaseCurrentQuestionIndex();
+    
   }
 
   isComplete() {
@@ -60,17 +79,34 @@ class Survey {
   getData() {
     let data = [];
     for (let i = 0; i < this.questionInputs.length; i++) {
+      console.log(data)
       let questionDatabaseIndex = this.questionInputs[i].id;
-      let answerDatabaseIndex =
-        this.questionInputs[i].getSelectedAnswerDatabaseIndex();
-      data.push({
-        poll: this.surveyId,
-        question: questionDatabaseIndex,
-        answer: answerDatabaseIndex,
-      });
-    }
+      console.log(3);
+      console.log(this.questionInputs);
 
-    return { data: data };
+      try {
+        let answerDatabaseIndex =
+        this.questionInputs[i].getSelectedAnswerDatabaseIndex();
+        data.push({
+          poll: this.surveyId,
+          question: questionDatabaseIndex,
+          answer: answerDatabaseIndex,
+      });
+        
+      } catch (error) {
+        let answerDatabaseIndex =this.questionInputs[i].answer;
+        data.push({
+          poll: this.surveyId,
+          question: questionDatabaseIndex,
+          answer: answerDatabaseIndex,
+        });
+      
+      }
+      }
+      console.log(data);
+      return { data: data };
+      
+      
   }
 }
 

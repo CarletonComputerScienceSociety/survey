@@ -15,7 +15,7 @@ class PollDetails(generics.RetrieveAPIView):
 
     def get(self, request, id):
         try:
-            poll = Poll.objects.get(id=id)
+            poll = Poll.objects.get(title=id) #make this id if we want to use poll id in url 
             serializer = PollSerializer(poll, many=False)
             final_data = {"data": serializer.data, "errors": None}
             return R(final_data, 200)

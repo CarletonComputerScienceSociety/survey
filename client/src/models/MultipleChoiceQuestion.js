@@ -9,6 +9,10 @@ class MultipleChoiceQuestion extends Question {
   }
 
   initAnswerInputs(answers) {
+    console.log(6);
+    console.log(answers.map(
+      (answer, index) => new MultipleChoiceAnswer(index,answer.id,answer.answerBody)
+    ));
     return answers.map(
       (answer, index) =>
         new MultipleChoiceAnswer(index, answer.id, answer.answerBody)

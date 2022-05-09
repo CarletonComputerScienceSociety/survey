@@ -9,6 +9,11 @@ class Question {
       body: this.body,
     };
   }
+
+  getClassName(){
+    return this.constructor.name;
+  }
+
 }
 
 export { Question };

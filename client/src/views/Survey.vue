@@ -9,6 +9,7 @@
       :questions="this.response.questions"
       :currentQuestion="this.object.getCurrentQuestion().getComponentFormat()"
       :selectAnswer="selectAnswer"
+      :className="this.object.getCurrentQuestion().getClassName()"
     />
     <p class="survey-complete-message" v-if="this.object.isComplete()">
       Thank you for your feedback!
@@ -50,6 +51,7 @@ export default {
     initData(response) {
       this.response = response;
       this.object = new Model(response);
+      console.log(this.object.getCurrentQuestion().getClassName());
     },
     loading() {
       return this.response === null;
