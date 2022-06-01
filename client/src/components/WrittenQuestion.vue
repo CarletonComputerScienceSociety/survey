@@ -1,15 +1,7 @@
 <template>
   <div class="written-question">
     <div class="written-question-body">{{ question.body }}</div>
-    <!--for now just holder later add wrriten answer-->
-    <!--crashed browser if i remove for loop-->
-    <!--<WrittenAnswer
-    v-for="answer in answers"
-      :key="answer.id"
-      :index="answer.index"
-      :body="answer.text"
-      :selectAnswer="selectAnswer"
-      />-->
+    
       <WrittenAnswer
       :selectAnswer="selectAnswer"
       :updateAnswer="updateAnswer"
