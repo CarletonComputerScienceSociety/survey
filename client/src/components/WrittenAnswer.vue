@@ -25,9 +25,6 @@ export default {
       required: true,
     },
   },
-  async created() {
-    console.log("Next question");
-  },
   data: function () {
     return {
       message: "",
