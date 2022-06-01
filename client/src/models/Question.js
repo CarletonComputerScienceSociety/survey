@@ -10,10 +10,9 @@ class Question {
     };
   }
 
-  getClassName(){
+  getClassName() {
     return this.constructor.name;
   }
-
 }
 
 export { Question };

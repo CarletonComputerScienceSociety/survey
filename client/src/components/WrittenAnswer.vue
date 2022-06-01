@@ -1,10 +1,14 @@
 <template>
-
-  
   <div>
-    <textarea v-model="message" v-on:keyup="updateAnswer($event.target.value)" placeholder="Enter your reply here..." type="text" id="inputAnswer" name="inputAnswer"></textarea>
+    <textarea
+      v-model="message"
+      v-on:keyup="updateAnswer($event.target.value)"
+      placeholder="Enter your reply here..."
+      type="text"
+      id="inputAnswer"
+      name="inputAnswer"
+    ></textarea>
     <div class="written-answer" v-on:click="onsubmit()">{{ "Submit" }}</div>
-
   </div>
 </template>
 
@@ -12,31 +16,30 @@
 export default {
   name: "WrittenAnswer",
   props: {
-selectAnswer: {
+    selectAnswer: {
       type: Function,
       required: true,
     },
-  updateAnswer: {
-    type: Function,
-    required: true,
-  },
+    updateAnswer: {
+      type: Function,
+      required: true,
+    },
   },
   async created() {
-    console.log("Next question")
+    console.log("Next question");
   },
   data: function () {
     return {
       message: "",
     };
+  },
+  methods: {
+    onsubmit() {
+      this.selectAnswer(this.index);
+      this.message = "";
     },
-  methods: {onsubmit(){
-    this.selectAnswer(this.index);
-    this.message="";
-    
-  }
-  }
+  },
 };
-
 </script>
 
 <style scoped lang="scss">
@@ -75,21 +78,20 @@ selectAnswer: {
   justify-content: center;
   align-items: center;
   width: 21%;
-  margin-left: 71%; 
+  margin-left: 71%;
 }
 
-#inputAnswer   {
+#inputAnswer {
   margin-bottom: 2rem;
   min-height: 14rem;
   min-width: 53rem;
-  align-items : right;
+  align-items: right;
   border-radius: 0.5rem;
-  font-family: "Source Sans Pro", sans-serif;  
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 28px;
   font-weight: 700;
-  color:#2c3e50;
+  color: #2c3e50;
   padding-top: 10px;
   padding-left: 10px;
-  
-  }
+}
 </style>

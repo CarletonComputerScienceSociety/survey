@@ -1,18 +1,17 @@
 <template>
   <div class="written-question">
     <div class="written-question-body">{{ question.body }}</div>
-    
-      <WrittenAnswer
+
+    <WrittenAnswer
       :selectAnswer="selectAnswer"
       :updateAnswer="updateAnswer"
       :value="question.answer"
-      />
-  
+    />
   </div>
 </template>
 
 <script>
-import WrittenAnswer from  "@/components/WrittenAnswer"
+import WrittenAnswer from "@/components/WrittenAnswer";
 
 export default {
   name: "WrittenQuestion",

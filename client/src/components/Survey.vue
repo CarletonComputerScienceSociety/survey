@@ -1,21 +1,17 @@
 <template>
   <div class="survey">
-
     <MultipleChoiceQuestion
-      v-if="className==='MultipleChoiceQuestion'"
+      v-if="className === 'MultipleChoiceQuestion'"
       :body="currentQuestion.body"
       :answers="currentQuestion.answers"
       :selectAnswer="selectAnswer"
-      />
-      <WrittenQuestion
-      v-if="className==='WrittenQuestion'"
+    />
+    <WrittenQuestion
+      v-if="className === 'WrittenQuestion'"
       :question="currentQuestion"
       :updateAnswer="updateAnswer"
       :selectAnswer="selectAnswer"
-      
-    
     />
-      
   </div>
 </template>
 
@@ -45,11 +41,9 @@ export default {
     className: {
       type: String,
       required: true,
-    }
-  
-  
+    },
   },
-  };
+};
 </script>
 
 <style scoped lang="scss">

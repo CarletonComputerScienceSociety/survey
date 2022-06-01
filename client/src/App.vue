@@ -26,14 +26,14 @@ body {
 }
 
 .footer {
-    height: 10vh;
-    background: black;
-    color: white;
-    display: flex;
-    font-size: 0.9rem;
-    justify-content: center;
-    align-items: center;
-    border-top: 3px solid #c40729;
+  height: 10vh;
+  background: black;
+  color: white;
+  display: flex;
+  font-size: 0.9rem;
+  justify-content: center;
+  align-items: center;
+  border-top: 3px solid #c40729;
 }
 
 #app {

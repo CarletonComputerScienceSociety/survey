@@ -76,7 +76,7 @@ export default {
         create_response(surveyData);
       }
     },
-    updateWrittenAnswer(answerBody){
+    updateWrittenAnswer(answerBody) {
       this.object.updateWrittenAnswer(answerBody);
       if (this.object.isComplete()) {
         let surveyData = this.object.getData();

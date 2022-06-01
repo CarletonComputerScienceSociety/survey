@@ -21,15 +21,13 @@ class Survey {
         question.id,
         question.answers
       );
+    } else {
+      return new WrittenQuestion(question.id, question.body);
     }
-    else{
-      return new WrittenQuestion(question.id, question.body );
-    }
-    
   }
 
   getCurrentQuestionDisplayIndex() {
-    return this.currentQuestionIndex+1;
+    return this.currentQuestionIndex + 1;
   }
 
   getCurrentQuestion() {
@@ -54,9 +52,8 @@ class Survey {
       this.getCurrentQuestion().setSelectedIndex(answerIndex);
     }
     this.increaseCurrentQuestionIndex();
-    
   }
-  updateWrittenAnswer(answerBody){
+  updateWrittenAnswer(answerBody) {
     this.getCurrentQuestion().updateAnswer(answerBody);
   }
 
@@ -70,26 +67,22 @@ class Survey {
 
       try {
         let answerDatabaseIndex =
-        this.questionInputs[i].getSelectedAnswerDatabaseIndex();
-        data.push({
-          poll: this.surveyId,
-          question: questionDatabaseIndex,
-          answer: answerDatabaseIndex,
-      });
-        
-      } catch (error) {
-        let answerDatabaseIndex =this.questionInputs[i].answer;
+          this.questionInputs[i].getSelectedAnswerDatabaseIndex();
         data.push({
           poll: this.surveyId,
           question: questionDatabaseIndex,
           answer: answerDatabaseIndex,
         });
-      
+      } catch (error) {
+        let answerDatabaseIndex = this.questionInputs[i].answer;
+        data.push({
+          poll: this.surveyId,
+          question: questionDatabaseIndex,
+          answer: answerDatabaseIndex,
+        });
       }
-      }
-      return { data: data };
-      
-      
+    }
+    return { data: data };
   }
 }
 
