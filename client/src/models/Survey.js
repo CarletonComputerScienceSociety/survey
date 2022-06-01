@@ -12,14 +12,10 @@ class Survey {
   }
 
   initQuestionsInputs(questions) {
-    console.log(9);
-    console.log(questions.map((question) => this.initQuestionInput(question)));
     return questions.map((question) => this.initQuestionInput(question));
   }
 
   initQuestionInput(question) {
-    console.log(77);
-    console.log(this);
     if (question.resourcetype === "MultipleChoiceQuestion") {
       return new MultipleChoiceQuestion(
         question.body,
@@ -27,7 +23,6 @@ class Survey {
         question.answers
       );
     }
-    //console.log(question.body);//breaking here
     else{
       return new WrittenQuestion(question.id, question.body );
     }
@@ -35,7 +30,7 @@ class Survey {
   }
 
   getCurrentQuestionDisplayIndex() {
-    return this.currentQuestionIndex;
+    return this.currentQuestionIndex+1;
   }
 
   getCurrentQuestion() {
@@ -55,22 +50,15 @@ class Survey {
   }
 
   selectAnswer(answerIndex) {
-    console.log(66);
-    console.log(this.getCurrentQuestion());
-    console.log("called select answer")
     if (this.getCurrentQuestion() instanceof MultipleChoiceQuestion) {
       //check with instance
       this.getCurrentQuestion().setSelectedIndex(answerIndex);
     }
-    else{
-      let currentAnswer = document.getElementById("inputAnswer");
-      console.log(88);
-      console.log(currentAnswer.value);
-      console.log(this.getCurrentQuestion().answer);  
-      this.getCurrentQuestion().answer = currentAnswer.value    ;
-    }
     this.increaseCurrentQuestionIndex();
     
+  }
+  updateWrittenAnswer(answerBody){
+    this.getCurrentQuestion().updateAnswer(answerBody);
   }
 
   isComplete() {
@@ -79,10 +67,7 @@ class Survey {
   getData() {
     let data = [];
     for (let i = 0; i < this.questionInputs.length; i++) {
-      console.log(data)
       let questionDatabaseIndex = this.questionInputs[i].id;
-      console.log(3);
-      console.log(this.questionInputs);
 
       try {
         let answerDatabaseIndex =
@@ -103,7 +88,6 @@ class Survey {
       
       }
       }
-      console.log(data);
       return { data: data };
       
       

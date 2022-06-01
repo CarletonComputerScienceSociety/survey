@@ -1,6 +1,6 @@
 <template>
   <div class="written-question">
-    <div class="written-question-body">{{ body }}</div>
+    <div class="written-question-body">{{ question.body }}</div>
     <!--for now just holder later add wrriten answer-->
     <!--crashed browser if i remove for loop-->
     <!--<WrittenAnswer
@@ -12,6 +12,8 @@
       />-->
       <WrittenAnswer
       :selectAnswer="selectAnswer"
+      :updateAnswer="updateAnswer"
+      :value="question.answer"
       />
   
   </div>
@@ -26,15 +28,17 @@ export default {
     WrittenAnswer,
   },
   props: {
-    body: {
-      type: String,
+    question: {
       required: true,
     },
     selectAnswer: {
       type: Function,
       required: true,
     },
-
+    updateAnswer: {
+      type: Function,
+      required: true,
+    },
   },
 };
 </script>

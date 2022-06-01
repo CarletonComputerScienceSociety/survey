@@ -18,8 +18,10 @@
       />
       <WrittenQuestion
       v-if="className==='WrittenQuestion'"
-      :body="currentQuestion.body"
+      :question="currentQuestion"
+      :updateAnswer="updateAnswer"
       :selectAnswer="selectAnswer"
+      
     
     />
       
@@ -45,6 +47,10 @@ export default {
       type: Function,
       required: true,
     },
+    updateAnswer: {
+      type: Function,
+      required: true,
+    },
 
     className: {
       type: String,
@@ -53,17 +59,7 @@ export default {
   
   
   },
-  methods: {
-  isMultipleModel (item) {
-    console.log(item);
-    console.log("hi");
-      //return item instanceof MultipleModel;
-  },
-  isWrittenModel (item) {
-    console.log(item);
-      //return item instanceof WrittenModel;
-}
-}};
+  };
 </script>
 
 <style scoped lang="scss">

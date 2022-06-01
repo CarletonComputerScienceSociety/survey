@@ -2,8 +2,8 @@
 
   
   <div>
-    <textarea type="text" id="inputAnswer" name="inputAnswer"></textarea>
-    <div class="written-answer" v-on:click="selectAnswer(index)">{{ "submit" }}</div>
+    <textarea v-model="message" v-on:keyup="updateAnswer($event.target.value)" placeholder="Enter your reply here..." type="text" id="inputAnswer" name="inputAnswer"></textarea>
+    <div class="written-answer" v-on:click="onsubmit()">{{ "Submit" }}</div>
 
   </div>
 </template>
@@ -16,7 +16,25 @@ selectAnswer: {
       type: Function,
       required: true,
     },
+  updateAnswer: {
+    type: Function,
+    required: true,
   },
+  },
+  async created() {
+    console.log("Next question")
+  },
+  data: function () {
+    return {
+      message: "",
+    };
+    },
+  methods: {onsubmit(){
+    this.selectAnswer(this.index);
+    this.message="";
+    
+  }
+  }
 };
 
 </script>
@@ -57,17 +75,26 @@ selectAnswer: {
   justify-content: center;
   align-items: center;
   width: 21%;
-   margin-left: 71%; 
+  margin-left: 71%; 
+  /*trying to add icon to submit
+  background-image: url("../assets/logo.png");
+  background-repeat: no-repeat;
+  background-position: left;
+  padding-left: 5px;*/
 }
 
 #inputAnswer   {
-  font-size: 32px;
-  font-weight: 700;
   margin-bottom: 2rem;
   min-height: 14rem;
   min-width: 53rem;
   align-items : right;
   border-radius: 0.5rem;
- 
-}
+  font-family: "Source Sans Pro", sans-serif;  
+  font-size: 28px;
+  font-weight: 700;
+  color:#2c3e50;
+  padding-top: 10px;
+  padding-left: 10px;
+  
+  }
 </style>
