@@ -76,11 +76,6 @@ selectAnswer: {
   align-items: center;
   width: 21%;
   margin-left: 71%; 
-  /*trying to add icon to submit
-  background-image: url("../assets/logo.png");
-  background-repeat: no-repeat;
-  background-position: left;
-  padding-left: 5px;*/
 }
 
 #inputAnswer   {

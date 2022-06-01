@@ -1,4 +1,3 @@
-//import { Question } from "./Question";
 import { MultipleChoiceQuestion } from "./MultipleChoiceQuestion";
 import { WrittenQuestion } from "./WrittenQuestion";
 
