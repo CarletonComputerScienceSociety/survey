@@ -1,4 +1,4 @@
-class Question {
+class WrittenAnswer {
   constructor(body, id) {
     this.body = body;
     this.id = id;
@@ -7,12 +7,9 @@ class Question {
   getComponentFormat() {
     return {
       body: this.body,
+      id: this.id,
     };
-  }
-
-  getClassName() {
-    return this.constructor.name;
   }
 }
 
-export { Question };
+export { WrittenAnswer };

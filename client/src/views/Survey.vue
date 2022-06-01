@@ -9,6 +9,8 @@
       :questions="this.response.questions"
       :currentQuestion="this.object.getCurrentQuestion().getComponentFormat()"
       :selectAnswer="selectAnswer"
+      :className="this.object.getCurrentQuestion().getClassName()"
+      :updateAnswer="updateWrittenAnswer"
     />
     <p class="survey-complete-message" v-if="this.object.isComplete()">
       Thank you for your feedback!
@@ -69,6 +71,13 @@ export default {
     selectAnswer(answerIndex) {
       this.object.selectAnswer(answerIndex);
 
+      if (this.object.isComplete()) {
+        let surveyData = this.object.getData();
+        create_response(surveyData);
+      }
+    },
+    updateWrittenAnswer(answerBody) {
+      this.object.updateWrittenAnswer(answerBody);
       if (this.object.isComplete()) {
         let surveyData = this.object.getData();
         create_response(surveyData);

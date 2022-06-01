@@ -45,6 +45,8 @@ progress::-webkit-progress-value {
   border-radius: 7px;
 }
 progress::-moz-progress-bar {
+  background-color: #c40729;
+  border-radius: 7px;
   /* style rules */
 }
 </style>

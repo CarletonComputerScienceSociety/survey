@@ -1,5 +1,5 @@
-import { Question } from "./Question";
 import { MultipleChoiceQuestion } from "./MultipleChoiceQuestion";
+import { WrittenQuestion } from "./WrittenQuestion";
 
 class Survey {
   constructor(survey) {
@@ -21,13 +21,13 @@ class Survey {
         question.id,
         question.answers
       );
+    } else {
+      return new WrittenQuestion(question.id, question.body);
     }
-
-    return new Question(question.order, question.question.body);
   }
 
   getCurrentQuestionDisplayIndex() {
-    return this.currentQuestionIndex;
+    return this.currentQuestionIndex + 1;
   }
 
   getCurrentQuestion() {
@@ -53,6 +53,9 @@ class Survey {
     }
     this.increaseCurrentQuestionIndex();
   }
+  updateWrittenAnswer(answerBody) {
+    this.getCurrentQuestion().updateAnswer(answerBody);
+  }
 
   isComplete() {
     return this.complete;
@@ -61,15 +64,24 @@ class Survey {
     let data = [];
     for (let i = 0; i < this.questionInputs.length; i++) {
       let questionDatabaseIndex = this.questionInputs[i].id;
-      let answerDatabaseIndex =
-        this.questionInputs[i].getSelectedAnswerDatabaseIndex();
-      data.push({
-        poll: this.surveyId,
-        question: questionDatabaseIndex,
-        answer: answerDatabaseIndex,
-      });
-    }
 
+      try {
+        let answerDatabaseIndex =
+          this.questionInputs[i].getSelectedAnswerDatabaseIndex();
+        data.push({
+          poll: this.surveyId,
+          question: questionDatabaseIndex,
+          answer: answerDatabaseIndex,
+        });
+      } catch (error) {
+        let answerDatabaseIndex = this.questionInputs[i].answer;
+        data.push({
+          poll: this.surveyId,
+          question: questionDatabaseIndex,
+          answer: answerDatabaseIndex,
+        });
+      }
+    }
     return { data: data };
   }
 }
